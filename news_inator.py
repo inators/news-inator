@@ -10,6 +10,7 @@ def main():
     global newsText
     global stories
     global apiKey
+    global newsDesc
     
     f = open('apiKey.txt','r')
     apiKey = f.read()
@@ -17,12 +18,16 @@ def main():
 
     refreshNews()
     
-    app = App(title='News-inator', width=400, height=200)
+    app = App(title='News-inator', width=600, height=400)
     newsText = Text(app,size=16)
+    newsDesc = Text(app,size=12)
     
-    lines = textwrap.wrap(stories[0]['title'], 36)
+    lines = textwrap.wrap(stories[0]['title'], 54)
     newsText.value = ('\n'.join(lines))
-    app.repeat(10*1000,showNews)
+    lines = textwrap.wrap(stories[0]['description'],72)
+    newsDesc.value = ('\n'.join(lines))
+    
+    app.repeat(15*1000,showNews)
     app.repeat(10*60*1000,refreshNews)
     newsText.when_clicked = openURL
     app.display()
@@ -46,8 +51,11 @@ def showNews():
         storyCounter = 0
     story = stories[storyCounter]['title']
     story = "%d of %d - %s" % ((storyCounter + 1),(len(stories)), story ) 
-    lines = textwrap.wrap(story,36)
+    lines = textwrap.wrap(story, 54)
     newsText.value = ('\n'.join(lines))
+    lines = textwrap.wrap(stories[storyCounter]['description'],72)
+    newsDesc.value = ('\n'.join(lines))
+
     
 def openURL():
     global storyCounter
