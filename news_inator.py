@@ -4,7 +4,7 @@ from pprint import pprint
 import textwrap
 import webbrowser
 
-storyCounter = 0
+storyCounter = -1
 
 def main():
     global newsText
@@ -22,14 +22,12 @@ def main():
     newsText = Text(app,size=16)
     newsDesc = Text(app,size=12)
     
-    lines = textwrap.wrap(stories[0]['title'], 54)
-    newsText.value = ('\n'.join(lines))
-    lines = textwrap.wrap(stories[0]['description'],72)
-    newsDesc.value = ('\n'.join(lines))
+    showNews()
     
     app.repeat(15*1000,showNews)
     app.repeat(10*60*1000,refreshNews)
     newsText.when_clicked = openURL
+    newsDesc.when_clicked = openURL
     app.display()
 
    
@@ -44,7 +42,7 @@ def refreshNews():
         stories = articles['articles']
     else:
         pprint(articles)
-        quit()
+    pprint(stories)
 
 def showNews():
     global storyCounter
@@ -60,6 +58,9 @@ def showNews():
         newsText.value = ('\n'.join(lines))
     else:
         newsText.value = story
+    if stories[storyCounter]['description'] == None:
+        newsDesc.value = ""
+        return
     if len(stories[storyCounter]['description']) > 72:    
         lines = textwrap.wrap(stories[storyCounter]['description'],72)
         newsDesc.value = ('\n'.join(lines))
