@@ -40,7 +40,11 @@ def refreshNews():
     url = ('https://newsapi.org/v2/top-headlines?country=us&apiKey=%s' % apiKey)
     response = requests.get(url)
     articles =  response.json()
-    stories = articles['articles']
+    if 'articles' in articles:
+        stories = articles['articles']
+    else:
+        pprint(articles)
+        quit()
 
 def showNews():
     global storyCounter
