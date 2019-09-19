@@ -42,7 +42,7 @@ def refreshNews():
         stories = articles['articles']
     else:
         pprint(articles)
-    pprint(stories)
+
 
 def showNews():
     global storyCounter
