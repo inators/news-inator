@@ -53,19 +53,25 @@ def showNews():
         storyCounter = 0
     story = stories[storyCounter]['title']
     story = "%d of %d - %s" % ((storyCounter + 1),(len(stories)), story ) 
+    description = stories[storyCounter]['description']
     if len(story) > 54:
         lines = textwrap.wrap(story, 54)
         newsText.value = ('\n'.join(lines))
     else:
         newsText.value = story
-    if stories[storyCounter]['description'] == None:
+    if description == None:
         newsDesc.value = ""
         return
-    if len(stories[storyCounter]['description']) > 72:    
-        lines = textwrap.wrap(stories[storyCounter]['description'],72)
+    charList = [description[x] for x in range(len(description)) if ord(description[x]) in range(65536)]
+    description = ''
+    for x in charList:
+        description += x
+
+    if len(description) > 72:    
+        lines = textwrap.wrap(description,72)
         newsDesc.value = ('\n'.join(lines))
     else:
-        newsDesc.value = stories[storyCounter]['description']
+        newsDesc.value = description
     
 def openURL():
     global storyCounter
