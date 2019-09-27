@@ -5,12 +5,14 @@ import textwrap
 import webbrowser
 
 storyCounter = -1
+app = App(title='News-inator', width=600, height=400)
 
 def main():
     global newsText
     global stories
     global apiKey
     global newsDesc
+    global app
     
     f = open('apiKey.txt','r')
     apiKey = f.read()
@@ -18,7 +20,7 @@ def main():
 
     refreshNews()
     
-    app = App(title='News-inator', width=600, height=400)
+
     newsText = Text(app,size=16)
     newsDesc = Text(app,size=12)
     
@@ -35,8 +37,16 @@ def main():
 def refreshNews():
     global stories
     global apiKey
+    global app
+    
     url = ('https://newsapi.org/v2/top-headlines?country=us&apiKey=%s' % apiKey)
-    response = requests.get(url)
+    try:    
+        response = requests.get(url)
+    except requests.ConnectionError:
+        app.title = 'News-inator ** Connection Error **'
+        return 
+    
+    app.title = 'News-inator'
     articles =  response.json()
     if 'articles' in articles:
         stories = articles['articles']
