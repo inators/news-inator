@@ -44,6 +44,7 @@ def refreshNews():
         response = requests.get(url)
     except requests.ConnectionError:
         app.title = 'News-inator ** Connection Error **'
+        print("Connection error")
         return 
     
     app.title = 'News-inator'
