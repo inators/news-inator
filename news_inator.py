@@ -29,7 +29,7 @@ def main():
     showNews()
     
     app.repeat(15*1000,showNews)
-    app.repeat(10*60*1000,refreshNews)
+    app.repeat(120*60*1000,refreshNews)
     newsText.when_clicked = openURL
     newsDesc.when_clicked = openURL
     app.display()
