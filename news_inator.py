@@ -10,7 +10,7 @@ import logging
 from time import sleep
 
 
-logging.basicConfig(level=logging.INFO, filename='news-inator.log')
+logging.basicConfig(level=logging.INFO, filename='~/news-inator.log')
 
 storyCounter = -1
 app = App(title='News-inator', width=600, height=400)
