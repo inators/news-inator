@@ -14,6 +14,8 @@ logging.basicConfig(level=logging.INFO, filename='/home/pi/news-inator.log')
 
 storyCounter = -1
 app = App(title='News-inator', width=600, height=400)
+app.tk.geometry('%dx%d+%d+%d' % (600, 400, 1300, 800))
+
 
 def main():
     global newsText
