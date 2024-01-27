@@ -10,7 +10,7 @@ import logging
 from time import sleep
 
 
-logging.basicConfig(level=logging.INFO, filename='mylog.log')
+logging.basicConfig(level=logging.INFO, filename='news-inator.log')
 
 storyCounter = -1
 app = App(title='News-inator', width=600, height=400)
@@ -53,6 +53,7 @@ def refreshNews():
     except requests.ConnectionError:
         app.title = 'News-inator ** Connection Error **'
         print("Connection error")
+        logging.exception("connection error")
         return 
     
     app.title = 'News-inator'
@@ -68,6 +69,8 @@ def showNews():
     global newsText
     global stories
     storyCounter += 1
+    if not "stories" in globals():
+        return False
     if storyCounter >= len(stories):
         storyCounter = 0
     story = stories[storyCounter]['title']
@@ -130,7 +133,6 @@ def wait_for_internet_connection(interval=5):
 
 if __name__ == '__main__':
     try:
-	sleet(5)
         wait_for_internet_connection()
         main()
     except Exception as e:
