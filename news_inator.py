@@ -10,9 +10,10 @@ from time import sleep
 import logging
 import sys
 import os
+from colors import Colors
 
-filename = os.path.basename("__file__")
-logger = logging.getLogger("calendar-inator")
+filename = os.path.basename(__file__)
+logger = logging.getLogger(f"{Colors.GREEN}{filename}{Colors.END}")
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(name)s] %(message)s',
                      filename="/home/pi/mylogs.log")
 logger.info("Program start.")
@@ -104,6 +105,7 @@ def showNews():
         newsDesc.value = ('\n'.join(lines))
     else:
         newsDesc.value = description
+    app.update()
     
 def openURL():
     global storyCounter
