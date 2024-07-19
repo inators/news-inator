@@ -13,9 +13,11 @@ import os
 from colors import Colors
 
 filename = os.path.basename(__file__)
+homefolder = os.path.expanduser("~")
+credsfolder = f"{homefolder}/creds"
 logger = logging.getLogger(f"{Colors.GREEN}{filename}{Colors.END}")
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(name)s] %(message)s',
-                     filename="/home/pi/mylogs.log")
+                     filename=f"{homefolder}/mylogs.log")
 logger.info("Program start.")
 sys.stderr.write = logger.error
 sys.stdout.write = logger.info
@@ -33,7 +35,7 @@ def main():
     global newsDesc
     global app
     
-    f = open('apiKey.txt','r')
+    f = open(f'{credsfolder}/newsinatorapiKey.txt','r')
     apiKey = f.read()
     f.close()
 
